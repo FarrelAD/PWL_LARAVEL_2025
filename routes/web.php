@@ -3,7 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,16 +51,16 @@ Route::domain('{account}.example.com')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/user', [UserController::class, 'index']);
-    Route::get('/post', [PostController::class, 'index']);
-    Route::get('/event', [EventController::class, 'index']);
+    // Route::get('/user', [UserController::class, 'index']);
+    // Route::get('/post', [PostController::class, 'index']);
+    // Route::get('/event', [EventController::class, 'index']);
 });
 
 
 Route::prefix('admin')->group(function () {
-    Route::get('/user', [UserController::class, 'index']);
-    Route::get('/post', [PostController::class, 'index']);
-    Route::get('/event', [EventController::class, 'index']);
+    // Route::get('/user', [UserController::class, 'index']);
+    // Route::get('/post', [PostController::class, 'index']);
+    // Route::get('/event', [EventController::class, 'index']);
 });
 
 Route::redirect('/here', '/there');
@@ -71,3 +71,11 @@ Route::get('/there', function () {
 
 Route::view('/welcome', 'welcome');
 Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
+
+Route::resource('photos', PhotoController::class);
+Route::resource('photos', PhotoController::class)->only([
+    'index', 'show'
+]);
+Route::resource('photos', PhotoController::class)->except([
+    'create', 'store', 'update', 'destroy'
+]);
