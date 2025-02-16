@@ -13,5 +13,6 @@
 <body>
     <h1>Pemrograman Web Lanjut 2025</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur non asperiores explicabo et fuga numquam amet dolorem vero quo. Commodi labore mollitia illo modi explicabo dicta itaque nemo quo excepturi.</p>
+    <p>Name: {{ $name }}</p>
 </body>
 </html>

@@ -77,3 +77,6 @@ Route::redirect('/here', '/there');
 Route::get('/there', function () {
     return "Hey! Do you come from /here route ?";
 });
+
+Route::view('/welcome', 'welcome');
+Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
