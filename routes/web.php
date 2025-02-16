@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,20 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/hello', function() {
-    return 'Hello World!';
-});
+Route::get('/', [PageController::class, 'index']);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/articles/{id}', [PageController::class, 'articles']);
+
+Route::get('/hello', [WelcomeController::class, 'hello']);
 Route::get('/world', function() {
     return 'World';
 });
 
-Route::get('/about', function() {
-    return '
-    <h1>About me:</h1>
-    <ul>
-        <li>Name: Farrel Augusta Dinata</li>
-        <li>NIM: 2341720081</li>';
-});
 
 
 Route::get('/user/{name?}', function ($name = 'Johnny') {
@@ -37,17 +34,8 @@ Route::get('/posts/{post}/comments/{comment}', function($postId, $commentId) {
     return "Pos ke-$postId dan komenter ke-$commentId";
 });
 
-Route::get('/articles/{id}', function($id) {
-    return "Ini adalah halaman artikel dengan ID: $id";
-});
-
 
 Route::middleware(['first', 'second'])->group(function () {
-    Route::get('/', function () {
-        // return view('welcome');
-        return 'Selamat datang!';
-    });
-
     Route::get('/user/profile', function() {
         return "Ini adalah halaman dari route /user/profile";
     })->name('profile');
