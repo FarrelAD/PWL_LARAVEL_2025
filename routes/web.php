@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    return 'Selamat datang!';
-});
-
 Route::get('/hello', function() {
     return 'Hello World!';
 });
@@ -33,6 +28,7 @@ Route::get('/about', function() {
         <li>NIM: 2341720081</li>';
 });
 
+
 Route::get('/user/{name?}', function ($name = 'Johnny') {
     return "Nama saya: $name";
 });
@@ -43,4 +39,35 @@ Route::get('/posts/{post}/comments/{comment}', function($postId, $commentId) {
 
 Route::get('/articles/{id}', function($id) {
     return "Ini adalah halaman artikel dengan ID: $id";
+});
+
+
+Route::middleware(['first', 'second'])->group(function () {
+    Route::get('/', function () {
+        // return view('welcome');
+        return 'Selamat datang!';
+    });
+
+    Route::get('/user/profile', function() {
+        return "Ini adalah halaman dari route /user/profile";
+    })->name('profile');
+});
+
+Route::domain('{account}.example.com')->group(function () {
+    Route::get('user/{id}', function ($account, $id) {
+        return "Akun: $account. ID: $id";
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/post', [PostController::class, 'index']);
+    Route::get('/event', [EventController::class, 'index']);
+});
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/post', [PostController::class, 'index']);
+    Route::get('/event', [EventController::class, 'index']);
 });
